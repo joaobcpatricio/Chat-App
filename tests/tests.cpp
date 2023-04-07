@@ -115,7 +115,6 @@ TEST_F(FIXTURE_NAME, WorkerThreadTestRun) {
     EXPECT_EQ(actual_output, expected_output.str());
 }
 
-TEST_F(FIXTURE_NAME, ClientCreatChatRoomNoExceptionsFromSubCalls) {
 
-}
+
 

@@ -56,7 +56,10 @@ void userInRoom::onMessage(std::array<char, MAX_IP_PKT_SIZE> &msg) {
 
 void userInRoom::usernameHandler(const boost::system::error_code &error) {
     if (strlen(username_.data()) <= MAX_USERNAME - 2) {
-        strcat(username_.data(), ": ");
+        int pos = strlen(username_.data());
+        username_[pos++] = ':';
+        username_[pos++] = ' ';
+        username_[pos] = '\0';
     } else {
         //cut off username if too long
         username_[MAX_USERNAME - 2] = ':';

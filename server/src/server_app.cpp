@@ -18,14 +18,14 @@ server::server(boost::asio::io_service &io_service,
 //-- Private --
 
 void server::run() {
-    std::shared_ptr<userInRoom> new_participant(new userInRoom(io_service_, strand_, room_));
-    acceptor_.async_accept(new_participant->socket(),
-                           strand_.wrap(boost::bind(&server::onAccept, this, new_participant, _1)));
+    std::shared_ptr<userInRoom> new_user(new userInRoom(io_service_, strand_, room_));
+    acceptor_.async_accept(new_user->socket(),
+                           strand_.wrap(boost::bind(&server::onAccept, this, new_user, _1)));
 }
 
-void server::onAccept(std::shared_ptr<userInRoom> new_participant, const boost::system::error_code &error) {
+void server::onAccept(std::shared_ptr<userInRoom> new_user, const boost::system::error_code &error) {
     if (!error) {
-        new_participant->start();
+        new_user->start();
     }
     run();
 }

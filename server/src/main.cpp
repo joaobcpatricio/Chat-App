@@ -3,7 +3,7 @@
 //
 
 #include "server_app.hpp"
-#include "chat_room.hpp"
+#include "worker_thread.h"
 
 #include <iostream>
 #include <boost/asio.hpp>

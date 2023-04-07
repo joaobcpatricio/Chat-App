@@ -21,7 +21,7 @@ public:
 
 private:
     void run();
-    void onAccept(std::shared_ptr<userInRoom> new_participant, const boost::system::error_code &error);
+    void onAccept(std::shared_ptr<userInRoom> new_user, const boost::system::error_code &error);
 
     boost::asio::io_service &io_service_;
     boost::asio::io_service::strand &strand_;

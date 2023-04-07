@@ -27,10 +27,9 @@ void chatRoom::broadcast(std::array<char, MAX_IP_PKT_SIZE> &msg, std::shared_ptr
     std::string username = getUsername(participant);
     std::array<char, MAX_IP_PKT_SIZE> formatted_msg;
 
-    // boundary correctness is guarded by protocol.hpp
-    strcpy(formatted_msg.data(), timestamp.c_str());
-    strcat(formatted_msg.data(), username.c_str());
-    strcat(formatted_msg.data(), msg.data());
+    std::copy(timestamp.begin(), timestamp.end(), formatted_msg.begin());
+    std::copy(username.begin(), username.end(), formatted_msg.begin() + timestamp.length());
+    std::copy_n(msg.begin(), std::min(msg.size(), formatted_msg.size() - timestamp.length() - username.length()), formatted_msg.begin() + timestamp.length() + username.length());
 
     recent_msgs_.push_back(formatted_msg);
     while (recent_msgs_.size() > max_recent_msgs) {

@@ -17,7 +17,7 @@
 
 class participant {
 public:
-    virtual ~participant() {}
+    virtual ~participant() = default;
 
     virtual void onMessage(std::array<char, MAX_IP_PKT_SIZE> &msg) = 0;
 };
