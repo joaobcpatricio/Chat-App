@@ -23,7 +23,8 @@ void clientApp::onConnect(const boost::system::error_code &error) { //write to s
                                  boost::asio::buffer(username_, username_.size()),
                                  boost::bind(&clientApp::readHandler, this, _1));
     }else{
-        std::cerr<<"ERR: Could not connect. Make sure a server is running with the targeted room."<<std::endl;
+        std::cerr<<"\nERR: Could not connect. Make sure a server is running with the targeted room, and run again."<<std::unitbuf;
+        std::cout<<"\nYou can close this window."<<std::endl;
     }
 }
 
