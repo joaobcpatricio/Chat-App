@@ -44,35 +44,4 @@ std::string chatRoom::getUsername(std::shared_ptr <participant> participant) {
 }
 
 
-namespace worker_space {
-    std::string getTimestamp() {
-        time_t t = time(0);   // get time now
-        struct tm *now = localtime(&t);
-        std::stringstream ss;
-        ss << '[' << (now->tm_year + 1900) << '-' << std::setfill('0')
-           << std::setw(2) << (now->tm_mon + 1) << '-' << std::setfill('0')
-           << std::setw(2) << now->tm_mday << ' ' << std::setfill('0')
-           << std::setw(2) << now->tm_hour << ":" << std::setfill('0')
-           << std::setw(2) << now->tm_min << ":" << std::setfill('0')
-           << std::setw(2) << now->tm_sec << "] ";
-
-        return ss.str();
-    }
-
-
-    void workerThread::run(std::shared_ptr<boost::asio::io_service> io_service) {
-        {
-            std::lock_guard<std::mutex> lock(m);
-            std::cout << "[" << std::this_thread::get_id() << "] Thread stared" << std::endl;
-        }
-
-        io_service->run();
-
-        {
-            std::lock_guard<std::mutex> lock(m);
-            std::cout << "[" << std::this_thread::get_id() << "] Thread ended" << std::endl;
-        }
-    }
-    std::mutex workerThread::m;
-}
 

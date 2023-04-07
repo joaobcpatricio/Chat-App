@@ -4,15 +4,18 @@
 
 #include "gtest/gtest.h"
 #include <boost/asio.hpp>
+#include <chrono>
+#include <ctime>
 
 #include "client_app.hpp"
 #include "server_app.hpp"
+#include "chat_room.hpp"
+#include "worker_thread.h"
 
 #undef FAIL
 #define FAIL_TEST()     GTEST_FAIL()
 
 #define FIXTURE_NAME    ExampleClassTest
-
 
 
 class FIXTURE_NAME : public ::testing::Test {
@@ -39,6 +42,7 @@ protected:
 
 /// Here go the tests --------------------------------------------------------------------------------------------------
 
+// -- Tests for the Client App --
 TEST_F(FIXTURE_NAME, ClientCreatAppWithUserNameNoExceptionsFromSubCalls) {
     boost::asio::io_service io_service;
     tcp::resolver::query query("127.0.0.1", "8080");
@@ -75,4 +79,43 @@ TEST_F(FIXTURE_NAME, ClientNoIssuesWithSocketCloseCall) {
     ASSERT_NO_THROW(app.close());
 }
 
+
+// -- Tests for the Server App --
+
+TEST_F(FIXTURE_NAME, WorkerThreadTestTimeFormatt) {
+    // Test the timestamp format
+    std::string timestamp = worker_space::getTimestamp();
+    EXPECT_EQ(timestamp.size(), 22);
+    EXPECT_EQ(timestamp[0], '[');
+    EXPECT_EQ(timestamp[20], ']');
+    EXPECT_EQ(timestamp[5], '-');
+    EXPECT_EQ(timestamp[11], ' ');
+    EXPECT_EQ(timestamp[14], ':');
+
+    // Test that the timestamp is within a reasonable range
+    auto now = std::chrono::system_clock::now();
+    std::time_t t = std::chrono::system_clock::to_time_t(now);
+    std::tm tm = *std::localtime(&t);
+    char buffer[20];
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &tm);
+    std::string expected_timestamp = "[" + std::string(buffer) + "] ";
+    EXPECT_EQ(timestamp, expected_timestamp); // The timestamp should match the expected value
+}
+
+TEST_F(FIXTURE_NAME, WorkerThreadTestRun) {
+    std::shared_ptr<boost::asio::io_service> io_service = std::make_shared<boost::asio::io_service>();
+    worker_space::workerThread thread;
+
+    std::ostringstream expected_output;
+    expected_output << "[" << std::this_thread::get_id() << "] Thread stared\n";
+    expected_output << "[" << std::this_thread::get_id() << "] Thread ended\n";
+    testing::internal::CaptureStdout();
+    thread.run(io_service);
+    std::string actual_output = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(actual_output, expected_output.str());
+}
+
+TEST_F(FIXTURE_NAME, ClientCreatChatRoomNoExceptionsFromSubCalls) {
+
+}
 

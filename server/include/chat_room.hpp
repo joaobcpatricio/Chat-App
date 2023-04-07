@@ -6,6 +6,7 @@
 #define CHAT_ROOM_H
 
 #include "settings.hpp"
+#include "worker_thread.h"
 
 #include <array>
 #include <memory>
@@ -35,16 +36,6 @@ private:
     std::deque<std::array<char, MAX_IP_PKT_SIZE>> recent_msgs_;
 };
 
-namespace worker_space {
-    std::string getTimestamp();
-    class workerThread {
-    public:
-        static void run(std::shared_ptr<boost::asio::io_service> io_service);
-
-    private:
-        static std::mutex m;
-    };
-}
 
 
 #endif //CHAT_ROOM_H

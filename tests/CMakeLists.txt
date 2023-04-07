@@ -17,7 +17,7 @@ include_directories(${CMAKE_SOURCE_DIR}/server/include)
 include_directories(${CMAKE_SOURCE_DIR}/server/src)
 
 # Here go all test source files
-set(test_SRCS tests.cpp ../client/src/client_app.cpp ../server/src/server_app.cpp ../server/src/server_user.cpp ../server/src/chat_room.cpp)
+set(test_SRCS tests.cpp ../client/src/client_app.cpp ../server/src/server_app.cpp ../server/src/server_user.cpp ../server/src/chat_room.cpp ../server/src/worker_thread.cpp)
 
 add_executable(Google_Tests_run ${test_SRCS})
 target_link_libraries(Google_Tests_run gtest gmock gtest_main ${Boost_LIBRARIES})

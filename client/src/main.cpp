@@ -57,17 +57,17 @@ int main(int argc, char *argv[]) {
             argc = sizeof(default_args) / sizeof(default_args[0]);
             argv = default_args;
             std::cout
-                    << "Wrong expected inputs, connection might not be guaranteed.\nProper usage: chat_client <username> <host> <port>\n";
-            std::cout << "Will attempt connection to " << argv[2] << ": " << argv[3] << " as " << argv[1] << std::endl;
+                    << "WARN: Wrong expected inputs, connection might not be guaranteed.\nProper usage: chat_client <username> <host> <port>\n";
+            std::cout << "Will attempt connection to " << argv[2] << ":" << argv[3] << " as " << argv[1] << std::endl;
             connectToServer(argv);
         } else if (argc > 4) { //Fail if more inputs that expected
-            std::cerr << "Wrong expected inputs, proper usage: chat_client <username> <host> <port>\n";
+            std::cerr << "ERR:  Wrong expected inputs, proper usage: chat_client <username> <host> <port>\n";
             return 1;
-        }else {
+        } else {
             connectToServer(argv);
         }
     } catch (std::exception &e) {
-        std::cerr << "Exceptione: " << e.what() << "\n";
+        std::cerr << "ERR:  Exception: " << e.what() << "\n";
     }
 
     std::cout << "Press any key to exit...";
