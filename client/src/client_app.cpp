@@ -6,7 +6,6 @@
 #include <boost/bind.hpp>
 #include <thread>
 #include <iostream>
-#include <cstring>
 
 clientApp::clientApp(const std::array<char, MAX_USERNAME> &username,
                      boost::asio::io_service &io_service,
@@ -18,17 +17,7 @@ clientApp::clientApp(const std::array<char, MAX_USERNAME> &username,
     boost::asio::async_connect(socket_, endpoint_iterator, boost::bind(&clientApp::onConnect, this, _1));
 }
 
-void clientApp::write(const std::array<char, MAX_IP_PKT_SIZE> &msg) {
-    io_service_.post(boost::bind(&clientApp::writeImpl, this, msg));
-}
-
-void clientApp::close() {
-    io_service_.post(boost::bind(&clientApp::closeImpl, this));
-}
-
-//Private
-
-void clientApp::onConnect(const boost::system::error_code &error) {
+void clientApp::onConnect(const boost::system::error_code &error) { //write to server the username, read its response
     if (!error) {
         boost::asio::async_write(socket_,
                                  boost::asio::buffer(username_, username_.size()),
@@ -36,18 +25,11 @@ void clientApp::onConnect(const boost::system::error_code &error) {
     }
 }
 
-void clientApp::readHandler(const boost::system::error_code &error) {
-    std::cout << read_msg_.data() << std::endl;
-    if (!error) {
-        boost::asio::async_read(socket_,
-                                boost::asio::buffer(read_msg_, read_msg_.size()),
-                                boost::bind(&clientApp::readHandler, this, _1));
-    } else {
-        closeImpl();
-    }
+void clientApp::write(const std::array<char, MAX_IP_PKT_SIZE> &msg) {
+    io_service_.post(boost::bind(&clientApp::writeToSocketQueue, this, msg));    //async call for the write
 }
 
-void clientApp::writeImpl(std::array<char, MAX_IP_PKT_SIZE> msg) {
+void clientApp::writeToSocketQueue(std::array<char, MAX_IP_PKT_SIZE> msg) {
     bool write_in_progress = !write_msgs_.empty();
     write_msgs_.push_back(msg);
     if (!write_in_progress) {
@@ -66,12 +48,34 @@ void clientApp::writeHandler(const boost::system::error_code &error) {
                                      boost::bind(&clientApp::writeHandler, this, _1));
         }
     } else {
-        closeImpl();
+        closeSocket();
     }
 }
 
-void clientApp::closeImpl() {
+void clientApp::close() {
+    io_service_.post(boost::bind(&clientApp::closeSocket, this));
+}
+
+void clientApp::closeSocket() {
     socket_.close();
 }
+
+std::array<char, MAX_USERNAME> clientApp::getUsername(){
+    return username_;
+}
+
+void clientApp::readHandler(const boost::system::error_code &error) {
+    std::cout << read_msg_.data() << std::endl;
+    if (!error) {
+        boost::asio::async_read(socket_,
+                                boost::asio::buffer(read_msg_, read_msg_.size()),
+                                boost::bind(&clientApp::readHandler, this, _1));
+    } else {
+        closeSocket();
+    }
+}
+
+
+
 
 

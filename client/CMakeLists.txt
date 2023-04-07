@@ -15,6 +15,7 @@ set(client_app_SRCS ${SOURCES})
 
 add_executable(${PROJECT_NAME} ${client_app_SRCS})
 
+
 target_include_directories(${PROJECT_NAME}
         PUBLIC
         $<INSTALL_INTERFACE:include>
@@ -26,3 +27,18 @@ target_link_libraries(${PROJECT_NAME}
         PRIVATE
         ${Boost_LIBRARIES}
         )
+
+##lib
+#add_library(example_class STATIC ${client_app_SRCS})
+#
+#target_include_directories(example_class
+#        PUBLIC
+#        $<INSTALL_INTERFACE:include>
+#        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#        ${Boost_INCLUDE_DIRS}
+#        )
+#
+#target_link_libraries(example_class
+#        PRIVATE
+#        ${Boost_LIBRARIES}
+#        )

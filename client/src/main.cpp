@@ -39,6 +39,10 @@ void connectToServer(char *argv[]) {
         }
         cli.write(msg);
     }
+
+    cli.close();
+    io_service.stop();
+    t.join();
 }
 
 int main(int argc, char *argv[]) {
@@ -62,8 +66,11 @@ int main(int argc, char *argv[]) {
         }
         connectToServer(argv);
     } catch (std::exception &e) {
-        std::cerr << "Exception: " << e.what() << "\n";
+        std::cerr << "Exceptione: " << e.what() << "\n";
     }
+
+    std::cout << "Press any key to exit...";
+    system("pause");
     return 0;
 }
 
