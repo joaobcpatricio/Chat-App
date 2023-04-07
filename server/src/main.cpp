@@ -34,6 +34,7 @@ void runServer(int &argc, char *argv[]) {
 
     std::list<std::shared_ptr<server >> servers;
     for (int i = 1; i < argc; ++i) {    //Create server object per port(room)
+        std::cout<<"Opening room at port "<<argv[i]<<std::endl;
         tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
         std::shared_ptr<server> a_server(new server(*io_service, *strand, endpoint));
         servers.push_back(a_server);
@@ -60,7 +61,7 @@ void runServer(int &argc, char *argv[]) {
 int main(int argc, char *argv[]) {
     try {
         if (argc < 2) {
-            std::string default_port = "8080";
+            std::string default_port = DEFAULT_PORT;
             char *default_args[] = {argv[0], const_cast<char *>(default_port.c_str())};
             argc = sizeof(default_args) / sizeof(default_args[0]);
             argv = default_args;

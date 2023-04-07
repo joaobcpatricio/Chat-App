@@ -18,7 +18,7 @@ void connectToServer(char *argv[]) {
 
     clientApp cli(username, io_service,
                   iterator);  // Attempt to connect to the server and create a clientApp instance
-    std::cout << "Successfully connected!\nYou can now start chatting."
+    std::cout << "Welcome "<<argv[1]<< "!\nYou can now start chatting."
               << std::endl;  //If not it will throw an exception
 
     std::thread t(boost::bind(&boost::asio::io_service::run, &
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
         if (argc < 4) { //Use defaults if missing one of the 3 inputs
             std::string default_username = "Anonymous";
             std::string default_host = "127.0.0.1";
-            std::string default_port = "8080";
+            std::string default_port = DEFAULT_PORT;
             char *default_args[] = {argv[0], const_cast<char *>(default_username.c_str()),
                                     const_cast<char *>(default_host.c_str()), const_cast<char *>(default_port.c_str())};
             argc = sizeof(default_args) / sizeof(default_args[0]);

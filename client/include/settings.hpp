@@ -7,11 +7,15 @@
 
 //This should be align with the settings at the server app
 
+#define DEFAULT_PORT "8888"
+
 enum : unsigned
 {
 	MAX_IP_PKT_SIZE = 512,
 	MAX_USERNAME = 16,
-	PADDING = 24
+	PADDING = 24,
 };
+
+
 
 #endif /* SETTINGS_HPP_ */

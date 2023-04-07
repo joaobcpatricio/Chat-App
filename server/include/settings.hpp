@@ -7,6 +7,8 @@
 
 //This should be align with the settings at the client app
 
+#define DEFAULT_PORT "8888"
+
 enum : unsigned
 {
 	MAX_IP_PKT_SIZE = 512,
