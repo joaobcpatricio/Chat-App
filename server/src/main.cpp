@@ -9,6 +9,9 @@
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
 
+#include <boost/asio/ip/host_name.hpp>
+#include <boost/asio/ip/address.hpp>
+
 int main(int argc, char* argv[])
 {
     try
@@ -23,7 +26,23 @@ int main(int argc, char* argv[])
         boost::shared_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(*io_service));
         boost::shared_ptr<boost::asio::io_service::strand> strand(new boost::asio::io_service::strand(*io_service));
 
-        std::cout << "[" << std::this_thread::get_id() << "]" << "server starts" << std::endl;
+        std::cout << "[" << std::this_thread::get_id() << "]" << " Server started" << std::endl;
+
+        try
+        {
+            boost::asio::io_context io_context;
+            boost::asio::ip::tcp::resolver resolver(io_context);
+            boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), "localhost", "");
+            boost::asio::ip::tcp::resolver::iterator it = resolver.resolve(query);
+            boost::asio::ip::tcp::endpoint endpoint = *it;
+            boost::asio::ip::address address = endpoint.address();
+            std::cout << "My local IP address is: " << address.to_string() << std::endl;
+        }
+        catch (std::exception& e)
+        {
+            std::cerr << "Exception: " << e.what() << std::endl;
+        }
+
 
         std::list < std::shared_ptr < server >> servers;
         for (int i = 1; i < argc; ++i)

@@ -63,14 +63,14 @@ namespace worker_space {
     void workerThread::run(std::shared_ptr<boost::asio::io_service> io_service) {
         {
             std::lock_guard<std::mutex> lock(m);
-            std::cout << "[" << std::this_thread::get_id() << "] Thread starts" << std::endl;
+            std::cout << "[" << std::this_thread::get_id() << "] Thread stared" << std::endl;
         }
 
         io_service->run();
 
         {
             std::lock_guard<std::mutex> lock(m);
-            std::cout << "[" << std::this_thread::get_id() << "] Thread ends" << std::endl;
+            std::cout << "[" << std::this_thread::get_id() << "] Thread ended" << std::endl;
         }
     }
     std::mutex workerThread::m;
