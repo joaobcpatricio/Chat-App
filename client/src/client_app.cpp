@@ -8,17 +8,17 @@
 #include <iostream>
 #include <cstring>
 
-clientApp::clientApp(const std::array<char, MAX_NICKNAME> &nickname,
+clientApp::clientApp(const std::array<char, MAX_USERNAME> &username,
                      boost::asio::io_service &io_service,
                      tcp::resolver::iterator endpoint_iterator) :
         io_service_(io_service), socket_(io_service) {
 
-    strcpy(nickname_.data(), nickname.data());
-    memset(read_msg_.data(), '\0', MAX_IP_PACK_SIZE);
+    std::copy(username.begin(), username.end(), username_.begin());
+    std::fill(read_msg_.begin(), read_msg_.end(), '\0');
     boost::asio::async_connect(socket_, endpoint_iterator, boost::bind(&clientApp::onConnect, this, _1));
 }
 
-void clientApp::write(const std::array<char, MAX_IP_PACK_SIZE> &msg) {
+void clientApp::write(const std::array<char, MAX_IP_PKT_SIZE> &msg) {
     io_service_.post(boost::bind(&clientApp::writeImpl, this, msg));
 }
 
@@ -31,7 +31,7 @@ void clientApp::close() {
 void clientApp::onConnect(const boost::system::error_code &error) {
     if (!error) {
         boost::asio::async_write(socket_,
-                                 boost::asio::buffer(nickname_, nickname_.size()),
+                                 boost::asio::buffer(username_, username_.size()),
                                  boost::bind(&clientApp::readHandler, this, _1));
     }
 }
@@ -47,7 +47,7 @@ void clientApp::readHandler(const boost::system::error_code &error) {
     }
 }
 
-void clientApp::writeImpl(std::array<char, MAX_IP_PACK_SIZE> msg) {
+void clientApp::writeImpl(std::array<char, MAX_IP_PKT_SIZE> msg) {
     bool write_in_progress = !write_msgs_.empty();
     write_msgs_.push_back(msg);
     if (!write_in_progress) {

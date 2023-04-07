@@ -19,11 +19,11 @@ tcp::socket& userInRoom::socket() { return socket_; }
 void userInRoom::start()
 {
     boost::asio::async_read(socket_,
-                            boost::asio::buffer(nickname_, nickname_.size()),
-                            strand_.wrap(boost::bind(&userInRoom::nicknameHandler, shared_from_this(), _1)));
+                            boost::asio::buffer(username_, username_.size()),
+                            strand_.wrap(boost::bind(&userInRoom::usernameHandler, shared_from_this(), _1)));
 }
 
-void userInRoom::onMessage(std::array<char, MAX_IP_PACK_SIZE>& msg)
+void userInRoom::onMessage(std::array<char, MAX_IP_PKT_SIZE>& msg)
 {
     bool write_in_progress = !write_msgs_.empty();
     write_msgs_.push_back(msg);
@@ -37,20 +37,20 @@ void userInRoom::onMessage(std::array<char, MAX_IP_PACK_SIZE>& msg)
 
 //Private
 
-void userInRoom::nicknameHandler(const boost::system::error_code& error)
+void userInRoom::usernameHandler(const boost::system::error_code& error)
 {
-    if (strlen(nickname_.data()) <= MAX_NICKNAME - 2)
+    if (strlen(username_.data()) <= MAX_USERNAME - 2)
     {
-        strcat(nickname_.data(), ": ");
+        strcat(username_.data(), ": ");
     }
     else
     {
-        //cut off nickname if too long
-        nickname_[MAX_NICKNAME - 2] = ':';
-        nickname_[MAX_NICKNAME - 1] = ' ';
+        //cut off username if too long
+        username_[MAX_USERNAME - 2] = ':';
+        username_[MAX_USERNAME - 1] = ' ';
     }
 
-    room_.enter(shared_from_this(), std::string(nickname_.data()));
+    room_.enter(shared_from_this(), std::string(username_.data()));
 
     boost::asio::async_read(socket_,
                             boost::asio::buffer(read_msg_, read_msg_.size()),

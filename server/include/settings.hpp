@@ -5,10 +5,12 @@
 #ifndef SETTINGS_HPP_
 #define SETTINGS_HPP_
 
+//This should be align with the settings at the client app
+
 enum : unsigned
 {
-	MAX_IP_PACK_SIZE = 512,
-	MAX_NICKNAME = 16,
+	MAX_IP_PKT_SIZE = 512,
+	MAX_USERNAME = 16,
 	PADDING = 24
 };
 

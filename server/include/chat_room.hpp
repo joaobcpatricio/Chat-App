@@ -18,21 +18,21 @@ class participant {
 public:
     virtual ~participant() {}
 
-    virtual void onMessage(std::array<char, MAX_IP_PACK_SIZE> &msg) = 0;
+    virtual void onMessage(std::array<char, MAX_IP_PKT_SIZE> &msg) = 0;
 };
 
 class chatRoom {
 public:
-    void enter(std::shared_ptr<participant> participant, const std::string & nickname);
+    void enter(std::shared_ptr<participant> participant, const std::string & username);
     void leave(std::shared_ptr<participant> participant);
-    void broadcast(std::array<char, MAX_IP_PACK_SIZE>& msg, std::shared_ptr<participant> participant);
-    std::string getNickname(std::shared_ptr<participant> participant);
+    void broadcast(std::array<char, MAX_IP_PKT_SIZE>& msg, std::shared_ptr<participant> participant);
+    std::string getUsername(std::shared_ptr<participant> participant);
 
 private:
     enum { max_recent_msgs = 100 };
     std::unordered_set<std::shared_ptr<participant>> participants_;
     std::unordered_map<std::shared_ptr<participant>, std::string> name_table_;
-    std::deque<std::array<char, MAX_IP_PACK_SIZE>> recent_msgs_;
+    std::deque<std::array<char, MAX_IP_PKT_SIZE>> recent_msgs_;
 };
 
 namespace worker_space {

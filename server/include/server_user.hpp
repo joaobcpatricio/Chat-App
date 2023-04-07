@@ -25,10 +25,10 @@ public:
 
     void start();
 
-    void onMessage(std::array<char, MAX_IP_PACK_SIZE> &msg);
+    void onMessage(std::array<char, MAX_IP_PKT_SIZE> &msg);
 
 private:
-    void nicknameHandler(const boost::system::error_code &error);
+    void usernameHandler(const boost::system::error_code &error);
 
     void readHandler(const boost::system::error_code &error);
 
@@ -37,9 +37,9 @@ private:
     tcp::socket socket_;
     boost::asio::io_service::strand &strand_;
     chatRoom &room_;
-    std::array<char, MAX_NICKNAME> nickname_;
-    std::array<char, MAX_IP_PACK_SIZE> read_msg_;
-    std::deque<std::array<char, MAX_IP_PACK_SIZE> > write_msgs_;
+    std::array<char, MAX_USERNAME> username_;
+    std::array<char, MAX_IP_PKT_SIZE> read_msg_;
+    std::deque<std::array<char, MAX_IP_PKT_SIZE> > write_msgs_;
 };
 
 #endif //SERVER_USER_H
