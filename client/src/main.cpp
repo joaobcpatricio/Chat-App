@@ -63,8 +63,9 @@ int main(int argc, char *argv[]) {
         } else if (argc > 4) { //Fail if more inputs that expected
             std::cerr << "Wrong expected inputs, proper usage: chat_client <username> <host> <port>\n";
             return 1;
+        }else {
+            connectToServer(argv);
         }
-        connectToServer(argv);
     } catch (std::exception &e) {
         std::cerr << "Exceptione: " << e.what() << "\n";
     }
