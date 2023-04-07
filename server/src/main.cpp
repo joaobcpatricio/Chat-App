@@ -8,21 +8,24 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
-
 #include <boost/asio/ip/host_name.hpp>
 #include <boost/asio/ip/address.hpp>
 
 void runServer(int &argc, char *argv[]) {
-    std::shared_ptr<boost::asio::io_service> io_service(new boost::asio::io_service);   //smart pointer for the io_service instance
-    boost::shared_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(*io_service));  //this will prevent io_service from stopping due to out of work
-    boost::shared_ptr<boost::asio::io_service::strand> strand(new boost::asio::io_service::strand(*io_service));    //provides thread safety for the io_service
+    std::shared_ptr<boost::asio::io_service> io_service(
+            new boost::asio::io_service);   //smart pointer for the io_service instance
+    boost::shared_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(
+            *io_service));  //this will prevent io_service from stopping due to out of work
+    boost::shared_ptr<boost::asio::io_service::strand> strand(
+            new boost::asio::io_service::strand(*io_service));    //provides thread safety for the io_service
     std::cout << "[" << std::this_thread::get_id() << "]" << " Server started" << std::endl;
 
     try {
         boost::asio::io_context io_context;
         boost::asio::ip::tcp::resolver resolver(io_context);
         boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), "localhost", "");
-        boost::asio::ip::tcp::resolver::iterator it = resolver.resolve(query);  //resolve the hostname of localhost to the IPv4 endpoint
+        boost::asio::ip::tcp::resolver::iterator it = resolver.resolve(
+                query);  //resolve the hostname of localhost to the IPv4 endpoint
         //Get local IP to print as an extra info
         boost::asio::ip::tcp::endpoint endpoint = *it;
         boost::asio::ip::address address = endpoint.address();
@@ -34,7 +37,7 @@ void runServer(int &argc, char *argv[]) {
 
     std::list<std::shared_ptr<server >> servers;
     for (int i = 1; i < argc; ++i) {    //Create server object per port(room)
-        std::cout<<"Opening room at port "<<argv[i]<<std::endl;
+        std::cout << "Opening room at port " << argv[i] << std::endl;
         tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
         std::shared_ptr<server> a_server(new server(*io_service, *strand, endpoint));
         servers.push_back(a_server);

@@ -9,6 +9,7 @@ set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.81.0 REQUIRED)
 find_package(Boost COMPONENTS thread)
 
+
 file(GLOB_RECURSE SOURCES src/*.cpp )
 set(client_app_SRCS ${SOURCES})
 
@@ -19,6 +20,7 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         ${Boost_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../common
         )
 
 target_link_libraries(${PROJECT_NAME}

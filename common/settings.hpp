@@ -5,8 +5,6 @@
 #ifndef SETTINGS_HPP_
 #define SETTINGS_HPP_
 
-//This should be align with the settings at the client app
-
 #define DEFAULT_PORT "8888"
 
 enum : unsigned

@@ -3,6 +3,7 @@ project(ChatApp)
 
 set(CMAKE_CXX_STANDARD 20)
 
+add_subdirectory(common)
 add_subdirectory(server)
 add_subdirectory(client)
 

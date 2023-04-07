@@ -18,7 +18,7 @@ void connectToServer(char *argv[]) {
 
     clientApp cli(username, io_service,
                   iterator);  // Attempt to connect to the server and create a clientApp instance
-    std::cout << "Welcome "<<argv[1]<< "!\nYou can now start chatting."
+    std::cout << "Welcome " << argv[1] << "!\nYou can now start chatting."
               << std::endl;
 
     std::thread t(boost::bind(&boost::asio::io_service::run, &
