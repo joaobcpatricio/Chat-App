@@ -15,7 +15,6 @@ namespace worker_space {
         return ss.str();
     }
 
-
     void workerThread::run(std::shared_ptr<boost::asio::io_service> io_service) {
         {   //scope guard the lock
             std::lock_guard<std::mutex> lock(m);

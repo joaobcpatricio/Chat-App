@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
             argc = sizeof(default_args) / sizeof(default_args[0]);
             argv = default_args;
             std::cout
-                    << "WARN: Wrong expected inputs, rooms might not be initialized properly.\nProper usage: chat_server <port> [<port> ...]\n";
+                    << "WARN: Wrong expected inputs, rooms might not be initialized properly. Using default values.\nProper usage: chat_server <port> [<port> ...]\n";
             runServer(argc, argv);
         } else {
             runServer(argc, argv);
@@ -74,6 +74,7 @@ int main(int argc, char *argv[]) {
     } catch (std::exception &e) {
         std::cerr << "ERR:  Exception: " << e.what() << "\n";
     }
-
+    std::cout << "Press any key to exit...";
+    system("pause");
     return 0;
 }

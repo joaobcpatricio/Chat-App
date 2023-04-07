@@ -18,7 +18,7 @@ void connectToServer(char *argv[]) {
 
     clientApp cli(username, io_service,
                   iterator);  // Attempt to connect to the server and create a clientApp instance
-    std::cout << "Successfully connected to the server!\nYou can now start chatting."
+    std::cout << "Successfully connected!\nYou can now start chatting."
               << std::endl;  //If not it will throw an exception
 
     std::thread t(boost::bind(&boost::asio::io_service::run, &
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
             argc = sizeof(default_args) / sizeof(default_args[0]);
             argv = default_args;
             std::cout
-                    << "WARN: Wrong expected inputs, connection might not be guaranteed.\nProper usage: chat_client <username> <host> <port>\n";
+                    << "WARN: Wrong expected inputs, connection might not be guaranteed. Using default values.\nProper usage: chat_client <username> <host> <port>\n";
             std::cout << "Will attempt connection to " << argv[2] << ":" << argv[3] << " as " << argv[1] << std::endl;
             connectToServer(argv);
         } else if (argc > 4) { //Fail if more inputs that expected

@@ -29,10 +29,10 @@ public:
 
 private:
     void usernameHandler(const boost::system::error_code &error);
-
     void readHandler(const boost::system::error_code &error);
-
     void writeHandler(const boost::system::error_code &error);
+    void informUserLeft();
+    void informUserJoined();
 
     tcp::socket socket_;
     boost::asio::io_service::strand &strand_;
