@@ -6,6 +6,7 @@
 #include <boost/asio.hpp>
 
 #include "client_app.hpp"
+#include "server_app.hpp"
 
 #undef FAIL
 #define FAIL_TEST()     GTEST_FAIL()

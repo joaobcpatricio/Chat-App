@@ -13,21 +13,16 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/client/include)
 include_directories(${CMAKE_SOURCE_DIR}/client/src)
-
-
+include_directories(${CMAKE_SOURCE_DIR}/server/include)
+include_directories(${CMAKE_SOURCE_DIR}/server/src)
 
 # Here go all test source files
-set(test_SRCS tests.cpp ../client/src/client_app.cpp)
-
-
-#lib
-#add_library(example_class STATIC ${client_app_SRCS} ${CMAKE_SOURCE_DIR}/client/src/*.cpp)
+set(test_SRCS tests.cpp ../client/src/client_app.cpp ../server/src/server_app.cpp ../server/src/server_user.cpp ../server/src/chat_room.cpp)
 
 add_executable(Google_Tests_run ${test_SRCS})
 target_link_libraries(Google_Tests_run gtest gmock gtest_main ${Boost_LIBRARIES})
 
-file(GLOB_RECURSE CLIENT_APP_SOURCES ${CMAKE_SOURCE_DIR}/client/src/*.cpp)
-
+file(GLOB_RECURSE CLIENT_APP_SOURCES ${CMAKE_SOURCE_DIR}/client/src/*.cpp ${CMAKE_SOURCE_DIR}/server/src/*.cpp)
 
 target_include_directories(Google_Tests_run
         PUBLIC
