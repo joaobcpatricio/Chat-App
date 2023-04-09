@@ -34,6 +34,7 @@ private:
     std::unordered_set<std::shared_ptr<participant>> participants_;
     std::unordered_map<std::shared_ptr<participant>, std::string> name_table_;
     std::deque<std::array<char, MAX_IP_PKT_SIZE>> recent_msgs_;
+    std::array<char, MAX_IP_PKT_SIZE> info_msg_;
 };
 
 

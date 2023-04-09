@@ -33,8 +33,6 @@ void connectToServer(char *argv[]) {
         }
         if (std::strcmp(msg.data(), "disconnect") == 0) {
             std::cout << "Disconnecting from the server!" << std::endl;
-            std::sprintf(msg.data(), "USER LEFT THE ROOM.");
-            cli.write(msg);
             break;
         }
         cli.write(msg);
@@ -70,7 +68,7 @@ int main(int argc, char *argv[]) {
         std::cerr << "ERR:  Exception: " << e.what() << "\n";
     }
 
-    std::cout << "Press any key to exit...";
+    std::cout << "You can now close this window.\n";
     system("pause");
     return 0;
 }

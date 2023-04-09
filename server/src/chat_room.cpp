@@ -15,9 +15,25 @@ void chatRoom::enter(std::shared_ptr<participant> participant, const std::string
 //    std::for_each(recent_msgs_.begin(), recent_msgs_.end(),
 //                  boost::bind(&participant::onMessage, participant, _1));
     boost::bind(&participant::onMessage, participant, _1);
+
+    //broadcast here that user joined
+    std::fill(info_msg_.begin(), info_msg_.end(), '\0');
+    std::string message = "USER JOINED.";
+    std::copy(message.begin(), message.end(), info_msg_.begin());
+    info_msg_[message.size()] = '\0';
+    this->broadcast(info_msg_, participant);
 }
 
 void chatRoom::leave(std::shared_ptr<participant> participant) {
+    //broadcast here that user left
+    std::string username = getUsername(participant);
+    if(username != "") {    //leave can be called more than once an user has left, username is "" after 1st call
+        std::fill(info_msg_.begin(), info_msg_.end(), '\0');
+        std::string message = "USER LEFT.";
+        std::copy(message.begin(), message.end(), info_msg_.begin());
+        info_msg_[message.size()] = '\0';
+        this->broadcast(info_msg_, participant);
+    }
     participants_.erase(participant);
     name_table_.erase(participant);
 }
