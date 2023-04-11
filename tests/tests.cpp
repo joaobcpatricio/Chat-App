@@ -15,7 +15,7 @@
 #undef FAIL
 #define FAIL_TEST()     GTEST_FAIL()
 
-#define FIXTURE_NAME    ExampleClassTest
+#define FIXTURE_NAME    ChatAppTests
 
 
 class FIXTURE_NAME : public ::testing::Test {

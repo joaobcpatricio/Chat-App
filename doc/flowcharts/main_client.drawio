@@ -1,0 +1,110 @@
+<mxfile host="Electron" modified="2023-04-11T16:45:44.764Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="TjweLGzBVOuxvYlvKnek" version="21.1.2" type="device">
+  <diagram name="Página-1" id="xAlf2-2vAacfX4u5f6ym">
+    <mxGraphModel dx="1232" dy="1187" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-1" target="Fib0QVNreCmnkIBZZ_DN-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="389" y="69" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-2" target="Fib0QVNreCmnkIBZZ_DN-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-2" value="main:&amp;nbsp;&lt;br&gt;parse input args" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="339.5" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-3" target="Fib0QVNreCmnkIBZZ_DN-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="270" />
+              <mxPoint x="389" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-3" value="sets default values:&lt;br&gt;username = Anonymous&lt;br&gt;host = 127.0.0.1&lt;br&gt;port = 8888" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="110" y="190.5" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-4" target="Fib0QVNreCmnkIBZZ_DN-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-8" value="No/wrong input args" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Fib0QVNreCmnkIBZZ_DN-7" vertex="1" connectable="0">
+          <mxGeometry x="0.2374" relative="1" as="geometry">
+            <mxPoint x="21" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-4" target="Fib0QVNreCmnkIBZZ_DN-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-4" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="389" y="210" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-10" target="Fib0QVNreCmnkIBZZ_DN-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-10" value="start IO service" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="349.5" y="301" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-11" target="Fib0QVNreCmnkIBZZ_DN-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-11" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="389" y="260" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-15" target="Fib0QVNreCmnkIBZZ_DN-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-15" value="start client app" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="349.5" y="351" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-17" target="Fib0QVNreCmnkIBZZ_DN-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-17" value="read input" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="349.5" y="441" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-18" target="Fib0QVNreCmnkIBZZ_DN-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-18" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="389" y="400" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-22" target="Fib0QVNreCmnkIBZZ_DN-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-28" value="&quot;disconnect&quot; input" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Fib0QVNreCmnkIBZZ_DN-27" vertex="1" connectable="0">
+          <mxGeometry x="-0.4255" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-22" target="Fib0QVNreCmnkIBZZ_DN-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-22" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="389" y="490" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-26" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="389" y="558" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Fib0QVNreCmnkIBZZ_DN-29" target="Fib0QVNreCmnkIBZZ_DN-18" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="411" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-29" value="send input to client app" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="480.75" width="90" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-33" value="Start" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="375" y="45" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Fib0QVNreCmnkIBZZ_DN-34" value="End" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="380" y="575" width="40" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
