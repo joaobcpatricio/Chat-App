@@ -1,6 +1,32 @@
 # Chat App
  Chat app based on socket tcp communication from client to server and vice versa.
 
+## How to use
+
+### Server Application
+
+For default settings, just double click the ServerApp.exe, it will run under the port 8888.
+
+To specify the room/port or several rooms, run as:
+
+```ServerApp.exe <port> [<port> ...]```
+
+E.g. execute server with two rooms:
+
+```ServerApp.exe 8888 9898```
+
+### Client Application
+
+For default settings, just double click the ClientApp.exe, it will run under the port 8888 with the username Anonymous.
+
+To specify the room/port or several rooms, run as:
+
+```ClientApp.exe <username> <host> <port>```
+
+E.g.:
+
+```ClientApp.exe Joao 127.0.0.1 9898```
+
 
 ## Dependencies
 

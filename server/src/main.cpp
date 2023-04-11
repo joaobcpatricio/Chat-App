@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
             argc = sizeof(default_args) / sizeof(default_args[0]);
             argv = default_args;
             std::cout
-                    << "WARN: Wrong expected inputs, rooms might not be initialized properly. Using default values.\nProper usage: chat_server <port> [<port> ...]\n";
+                    << "WARN: Wrong expected inputs, rooms might not be initialized properly. Using default values.\nProper usage: ServerApp.exe <port> [<port> ...]\n";
             runServer(argc, argv);
         } else {
             runServer(argc, argv);
