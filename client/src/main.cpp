@@ -13,8 +13,11 @@ void connectToServer(char *argv[]) {
     tcp::resolver resolver(io_service);
     tcp::resolver::query query(argv[2], argv[3]);
     tcp::resolver::iterator iterator = resolver.resolve(query);
+
     std::array<char, MAX_USERNAME> username;
-    strcpy(username.data(), argv[1]);
+    std::fill(username.begin(), username.end(), '\0');
+    std::string username_str = argv[1];
+    std::copy(username_str.begin(), username_str.end(), username.data());
 
     clientApp cli(username, io_service,
                   iterator);  // Attempt to connect to the server and create a clientApp instance
