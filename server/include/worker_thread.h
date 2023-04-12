@@ -11,7 +11,7 @@ namespace worker_space {
     std::string getTimestamp();
     class workerThread {
     public:
-        static void run(std::shared_ptr<boost::asio::io_service> io_service);
+        static void run(std::shared_ptr<boost::asio::io_context> io_context);
 
     private:
         static std::mutex m;

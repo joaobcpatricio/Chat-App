@@ -15,13 +15,13 @@ namespace worker_space {
         return ss.str();
     }
 
-    void workerThread::run(std::shared_ptr<boost::asio::io_service> io_service) {
+    void workerThread::run(std::shared_ptr<boost::asio::io_context> io_context) {
         {   //scope guard the lock
             std::lock_guard<std::mutex> lock(m);
             std::cout << "[" << std::this_thread::get_id() << "] Thread stared" << std::endl;
         }
 
-        io_service->run();
+        io_context->run();
 
         {
             std::lock_guard<std::mutex> lock(m);

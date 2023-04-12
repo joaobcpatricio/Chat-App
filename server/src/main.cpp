@@ -12,12 +12,12 @@
 #include <boost/asio/ip/address.hpp>
 
 void runServer(int &argc, char *argv[]) {
-    std::shared_ptr<boost::asio::io_service> io_service(
-            new boost::asio::io_service);   //smart pointer for the io_service instance
-    boost::shared_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(
-            *io_service));  //this will prevent io_service from stopping due to out of work
-    boost::shared_ptr<boost::asio::io_service::strand> strand(
-            new boost::asio::io_service::strand(*io_service));    //provides thread safety for the io_service
+    std::shared_ptr<boost::asio::io_context> io_context(
+            new boost::asio::io_context);   //smart pointer for the io_context instance
+    boost::shared_ptr<boost::asio::io_context::work> work(new boost::asio::io_context::work(
+            *io_context));  //this will prevent io_context from stopping due to out of work
+    boost::shared_ptr<boost::asio::io_context::strand> strand(
+            new boost::asio::io_context::strand(*io_context));    //provides thread safety for the io_context
     std::cout << "[" << std::this_thread::get_id() << "]" << " Server started" << std::endl;
 
     try {
@@ -39,13 +39,13 @@ void runServer(int &argc, char *argv[]) {
     for (int i = 1; i < argc; ++i) {    //Create server object per port(room)
         std::cout << "Opening room at port " << argv[i] << std::endl;
         tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
-        std::shared_ptr<server> a_server(new server(*io_service, *strand, endpoint));
+        std::shared_ptr<server> a_server(new server(*io_context, *strand, endpoint));
         servers.push_back(a_server);
     }
 
     boost::thread_group workers;
     for (int i = 0; i < 1; ++i) {   //Change here to increase no. of threads
-        boost::thread *t = new boost::thread{boost::bind(&worker_space::workerThread::run, io_service)};
+        boost::thread *t = new boost::thread{boost::bind(&worker_space::workerThread::run, io_context)};
 
 #ifdef __linux__
         //To avoid cache misses and reduce the overhead caused by thread migration between CPU cores

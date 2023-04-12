@@ -18,8 +18,8 @@ using boost::asio::ip::tcp;
 class userInRoom : public participant,
                    public std::enable_shared_from_this<userInRoom> {
 public:
-    userInRoom(boost::asio::io_service &io_service,
-               boost::asio::io_service::strand &strand, chatRoom &room);
+    userInRoom(boost::asio::io_context &io_context,
+               boost::asio::io_context::strand &strand, chatRoom &room);
 
     tcp::socket &socket();
 
@@ -35,7 +35,7 @@ private:
     void informUserJoined();
 
     tcp::socket socket_;
-    boost::asio::io_service::strand &strand_;
+    boost::asio::io_context::strand &strand_;
     chatRoom &room_;
     std::array<char, MAX_USERNAME> username_;
     std::array<char, MAX_IP_PKT_SIZE> read_msg_;

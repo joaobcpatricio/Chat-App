@@ -15,16 +15,16 @@ using boost::asio::ip::tcp;
 
 class server {
 public:
-    server(boost::asio::io_service &io_service,
-           boost::asio::io_service::strand &strand,
+    server(boost::asio::io_context &io_context,
+           boost::asio::io_context::strand &strand,
            const tcp::endpoint &endpoint);
 
 private:
     void run();
     void onAccept(std::shared_ptr<userInRoom> new_user, const boost::system::error_code &error);
 
-    boost::asio::io_service &io_service_;
-    boost::asio::io_service::strand &strand_;
+    boost::asio::io_context &io_context_;
+    boost::asio::io_context::strand &strand_;
     tcp::acceptor acceptor_;
     chatRoom room_;
 };

@@ -9,9 +9,9 @@
 #include <boost/thread/thread.hpp>
 #include <iostream>
 
-userInRoom::userInRoom(boost::asio::io_service &io_service,
-                       boost::asio::io_service::strand &strand, chatRoom &room)
-        : socket_(io_service), strand_(strand), room_(room) {
+userInRoom::userInRoom(boost::asio::io_context &io_context,
+                       boost::asio::io_context::strand &strand, chatRoom &room)
+        : socket_(io_context), strand_(strand), room_(room) {
 }
 
 tcp::socket &userInRoom::socket() { return socket_; }

@@ -44,36 +44,36 @@ protected:
 
 // -- Tests for the Client App --
 TEST_F(FIXTURE_NAME, ClientCreatAppWithUserNameNoExceptionsFromSubCalls) {
-    boost::asio::io_service io_service;
+    boost::asio::io_context io_context;
     tcp::resolver::query query("127.0.0.1", "8080");
-    tcp::resolver resolver(io_service);
+    tcp::resolver resolver(io_context);
     tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
     std::array<char, MAX_USERNAME> username = {'u', 's', 'e', 'r', 'n', 'a', 'm', 'e'};
-    clientApp app(username, io_service, endpoint_iterator);
+    clientApp app(username, io_context, endpoint_iterator);
 
     std::array<char, MAX_USERNAME> app_usrname = app.getUsername();
     EXPECT_EQ(app_usrname, username);
 }
 
 TEST_F(FIXTURE_NAME, ClentAssertWriteDoesNotThrowException) {
-    boost::asio::io_service io_service;
+    boost::asio::io_context io_context;
     tcp::resolver::query query("127.0.0.1", "8080");
-    tcp::resolver resolver(io_service);
+    tcp::resolver resolver(io_context);
     tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
     std::array<char, MAX_USERNAME> username = {'u', 's', 'e', 'r', 'n', 'a', 'm', 'e'};
-    clientApp app(username, io_service, endpoint_iterator);
+    clientApp app(username, io_context, endpoint_iterator);
 
     std::array<char, MAX_IP_PKT_SIZE> msg{'H', 'e', 'l', 'l', 'o'};
     ASSERT_NO_THROW(app.write(msg));
 }
 
 TEST_F(FIXTURE_NAME, ClientNoIssuesWithSocketCloseCall) {
-    boost::asio::io_service io_service;
+    boost::asio::io_context io_context;
     tcp::resolver::query query("127.0.0.1", "8080");
-    tcp::resolver resolver(io_service);
+    tcp::resolver resolver(io_context);
     tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
     std::array<char, MAX_USERNAME> username = {'u', 's', 'e', 'r', 'n', 'a', 'm', 'e'};
-    clientApp app(username, io_service, endpoint_iterator);
+    clientApp app(username, io_context, endpoint_iterator);
 
     app.close();
     ASSERT_NO_THROW(app.close());
@@ -103,14 +103,14 @@ TEST_F(FIXTURE_NAME, WorkerThreadTestTimeFormatt) {
 }
 
 TEST_F(FIXTURE_NAME, WorkerThreadTestRun) {
-    std::shared_ptr<boost::asio::io_service> io_service = std::make_shared<boost::asio::io_service>();
+    std::shared_ptr<boost::asio::io_context> io_context = std::make_shared<boost::asio::io_context>();
     worker_space::workerThread thread;
 
     std::ostringstream expected_output;
     expected_output << "[" << std::this_thread::get_id() << "] Thread stared\n";
     expected_output << "[" << std::this_thread::get_id() << "] Thread ended\n";
     testing::internal::CaptureStdout();
-    thread.run(io_service);
+    thread.run(io_context);
     std::string actual_output = testing::internal::GetCapturedStdout();
     EXPECT_EQ(actual_output, expected_output.str());
 }
