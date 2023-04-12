@@ -27,7 +27,7 @@ void chatRoom::enter(std::shared_ptr<participant> participant, const std::string
 void chatRoom::leave(std::shared_ptr<participant> participant) {
     //broadcast here that user left
     std::string username = getUsername(participant);
-    if(username != "") {    //leave can be called more than once an user has left, username is "" after 1st call
+    if(username != "") {    //leave can be called more than once after an user has left, but username is "" after 1st leave call
         std::fill(info_msg_.begin(), info_msg_.end(), '\0');
         std::string message = "USER LEFT.";
         std::copy(message.begin(), message.end(), info_msg_.begin());

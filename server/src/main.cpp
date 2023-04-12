@@ -13,7 +13,7 @@
 
 void runServer(int &argc, char *argv[]) {
     std::shared_ptr<boost::asio::io_context> io_context(
-            new boost::asio::io_context);   //smart pointer for the io_context instance
+            new boost::asio::io_context);
     boost::shared_ptr<boost::asio::io_context::work> work(new boost::asio::io_context::work(
             *io_context));  //this will prevent io_context from stopping due to out of work
     boost::shared_ptr<boost::asio::io_context::strand> strand(
@@ -21,24 +21,26 @@ void runServer(int &argc, char *argv[]) {
     std::cout << "[" << std::this_thread::get_id() << "]" << " Server started" << std::endl;
 
     try {
-        boost::asio::io_context io_context;
-        boost::asio::ip::tcp::resolver resolver(io_context);
-        boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), "localhost", "");
-        boost::asio::ip::tcp::resolver::iterator it = resolver.resolve(
-                query);  //resolve the hostname of localhost to the IPv4 endpoint
-        //Get local IP to print as an extra info
-        boost::asio::ip::tcp::endpoint endpoint = *it;
+        boost::asio::ip::tcp::endpoint endpoint = boost::asio::ip::tcp::endpoint(
+                boost::asio::ip::make_address_v4("127.0.0.1"), 0);
         boost::asio::ip::address address = endpoint.address();
-        std::cout << "My local IP address is: " << address.to_string() << std::endl;
-    }
-    catch (std::exception &e) {
+        std::cout << "My IP address is: " << address.to_string() << std::endl;
+    } catch (std::exception& e) {
         std::cerr << "ERR: Exception: " << e.what() << std::endl;
+        return;
     }
 
-    std::list<std::shared_ptr<server >> servers;
-    for (int i = 1; i < argc; ++i) {    //Create server object per port(room)
-        std::cout << "Opening room at port " << argv[i] << std::endl;
-        tcp::endpoint endpoint(tcp::v4(), std::atoi(argv[i]));
+    const int kNumArgs = argc;
+    std::list<std::shared_ptr<server>> servers;
+    for (int i = 1; i < kNumArgs; ++i) {
+        char* end;
+        long port = std::strtol(argv[i], &end, 10);
+        if (*end != '\0' || port <= 0 || port > 65535) {
+            std::cerr << "ERR: Invalid port number: " << argv[i] << std::endl;
+            return;
+        }
+        std::cout << "Opening room at port " << port << std::endl;
+        tcp::endpoint endpoint(tcp::v4(), port);
         std::shared_ptr<server> a_server(new server(*io_context, *strand, endpoint));
         servers.push_back(a_server);
     }
@@ -46,15 +48,6 @@ void runServer(int &argc, char *argv[]) {
     boost::thread_group workers;
     for (int i = 0; i < 1; ++i) {   //Change here to increase no. of threads
         boost::thread *t = new boost::thread{boost::bind(&worker_space::workerThread::run, io_context)};
-
-#ifdef __linux__
-        //To avoid cache misses and reduce the overhead caused by thread migration between CPU cores
-        // bind cpu affinity for worker thread in linux
-            cpu_set_t cpuset;
-            CPU_ZERO(&cpuset);
-            CPU_SET(i, &cpuset);
-            pthread_setaffinity_np(t->native_handle(), sizeof(cpu_set_t), &cpuset);
-#endif
         workers.add_thread(t);
     }
 

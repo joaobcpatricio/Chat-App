@@ -18,7 +18,7 @@ namespace worker_space {
     void workerThread::run(std::shared_ptr<boost::asio::io_context> io_context) {
         {   //scope guard the lock
             std::lock_guard<std::mutex> lock(m);
-            std::cout << "[" << std::this_thread::get_id() << "] Thread stared" << std::endl;
+            std::cout << "[" << std::this_thread::get_id() << "] Thread started" << std::endl;
         }
 
         io_context->run();
