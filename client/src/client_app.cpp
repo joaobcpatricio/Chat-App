@@ -8,9 +8,9 @@
 #include <iostream>
 
 clientApp::clientApp(const std::array<char, MAX_USERNAME> &username,
-                     boost::asio::io_service &io_service,
+                     boost::asio::io_context &io_context,
                      tcp::resolver::iterator endpoint_iterator) :
-        io_service_(io_service), socket_(io_service) {
+        io_context_(io_context), socket_(io_context) {
 
     std::copy(username.begin(), username.end(), username_.begin());
     std::fill(read_msg_.begin(), read_msg_.end(), '\0');
@@ -29,7 +29,7 @@ void clientApp::onConnect(const boost::system::error_code &error) { //write to s
 }
 
 void clientApp::write(const std::array<char, MAX_IP_PKT_SIZE> &msg) {
-    io_service_.post(boost::bind(&clientApp::writeToSocketQueue, this, msg));    //async call for the write
+    io_context_.post(boost::bind(&clientApp::writeToSocketQueue, this, msg));    //async call for the write
 }
 
 void clientApp::writeToSocketQueue(std::array<char, MAX_IP_PKT_SIZE> msg) {
@@ -56,7 +56,7 @@ void clientApp::writeHandler(const boost::system::error_code &error) {
 }
 
 void clientApp::close() {
-    io_service_.post(boost::bind(&clientApp::closeSocket, this));
+    io_context_.post(boost::bind(&clientApp::closeSocket, this));
 }
 
 void clientApp::closeSocket() {

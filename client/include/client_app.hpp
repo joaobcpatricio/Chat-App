@@ -15,7 +15,7 @@ using boost::asio::ip::tcp;
 class clientApp {
 public:
     clientApp(const std::array<char, MAX_USERNAME> &username,
-              boost::asio::io_service &io_service,
+              boost::asio::io_context &io_context,
               tcp::resolver::iterator endpoint_iterator);
 
     void write(const std::array<char, MAX_IP_PKT_SIZE> &msg);
@@ -35,7 +35,7 @@ private:
 
     void readHandler(const boost::system::error_code &error);
 
-    boost::asio::io_service &io_service_;
+    boost::asio::io_context &io_context_;
     tcp::socket socket_;
     std::deque<std::array<char, MAX_IP_PKT_SIZE>> write_msgs_;
 

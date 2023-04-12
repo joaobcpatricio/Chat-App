@@ -9,8 +9,8 @@
 #include <string>
 
 void connectToServer(char *argv[]) {
-    boost::asio::io_service io_service;
-    tcp::resolver resolver(io_service);
+    boost::asio::io_context io_context;
+    tcp::resolver resolver(io_context);
     tcp::resolver::query query(argv[2], argv[3]);
     tcp::resolver::iterator iterator = resolver.resolve(query);
 
@@ -19,13 +19,13 @@ void connectToServer(char *argv[]) {
     std::string username_str = argv[1];
     std::copy(username_str.begin(), username_str.end(), username.data());
 
-    clientApp cli(username, io_service,
+    clientApp cli(username, io_context,
                   iterator);  // Attempt to connect to the server and create a clientApp instance
     std::cout << "Welcome " << argv[1] << "!\nYou can now start chatting."
               << std::endl;
 
-    std::thread t(boost::bind(&boost::asio::io_service::run, &
-            io_service));
+    std::thread t(boost::bind(&boost::asio::io_context::run, &
+            io_context));
 
     std::array<char, MAX_IP_PKT_SIZE> msg;
 
@@ -42,7 +42,7 @@ void connectToServer(char *argv[]) {
     }
 
     cli.close();
-    io_service.stop();
+    io_context.stop();
     t.join();
 }
 
